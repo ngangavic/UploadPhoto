@@ -123,7 +123,8 @@ uploadImageToServer();
                 Uri contentURI = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    imageView.setImageBitmap(bitmap);
+                    Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,200,200,true);
+                    imageView.setImageBitmap(bitmapResized);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -133,13 +134,14 @@ uploadImageToServer();
 
         } else if (requestCode == CAMERA) {
             bitmap = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(bitmap);
+            Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,200,200,true);
+            imageView.setImageBitmap(bitmapResized);
         }
     }
 
     public void uploadImageToServer() {
-
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap,200,200,true);
+        bitmapResized.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
 
         byteArray = byteArrayOutputStream.toByteArray();
 
